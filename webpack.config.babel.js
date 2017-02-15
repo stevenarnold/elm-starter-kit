@@ -20,11 +20,25 @@ const config = {
   module: {
     noParse: /\.elm$/,
     preLoaders: [
-      { test: /\.js$/, exclude: [path.resolve(__dirname, 'styles/'), /node_modules/], loader: 'eslint-loader' }
+      { test: /\.js$/, exclude: [path.resolve(__dirname, 'styles/'), /node_modules/], loader: 'eslint-loader' },
+      {
+        // Notice that the preloader actually reads .elm files looking for dependencies to be compiled from elmx
+        test: /\.elm$/,
+        loader: 'elmx-webpack-preloader',
+        include: [join(__dirname, "elm")],
+        query: {
+          sourceDirectories: ['elm']
+        }
+      }
     ],
     loaders: [
       { test: /\.js$/, exclude: [/node_modules/], loader: 'babel-loader' },
       { test: /\.(png|jpg|gif|svg|ttf|otf|eot|svg|woff2?)$/, loader: 'url-loader?limit=8192' },
+      {
+        test: /\.elm$/,
+        loader: 'elm-webpack',
+        include: [join(__dirname, "elm")]
+      },
       { test: /\.elm$/, exclude: [/elm-stuff/, /node_modules/], loader: (START ? 'elm-hot!' : '') + 'elm-webpack?warn&pathToMake=node_modules/.bin/elm-make' }
     ]
   },
