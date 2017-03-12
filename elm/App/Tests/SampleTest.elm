@@ -20,16 +20,8 @@ testSuite =
             << quickCheck
           <|
             Check.suite "product"
-                [ claim "should multiply Ints"
-                    `that` (\( a, b ) -> product a b)
-                    `is` (\( a, b ) -> a * b)
-                    `for` tuple ( int, int )
-                , claim "should multiply Floats"
-                    `that` (\( a, b ) -> product a b)
-                    `is` (\( a, b ) -> a * b)
-                    `for` tuple ( float, float )
-                , claim "should be inverted by division with minimal imprecision"
-                    `true` (\( a, b ) -> abs (product a b / b - a) < 1.0e-6)
-                    `for` (filter (\( a, b ) -> b /= 0) (tuple ( float, float )))
+                [ for (is (that (claim "should multiply Ints") (\( a, b ) -> product a b)) (\( a, b ) -> a * b)) (tuple ( int, int ))
+                , for (is (that (claim "should multiply Floats") (\( a, b ) -> product a b)) (\( a, b ) -> a * b)) (tuple ( float, float ))
+                , for (true (claim "should be inverted by division with minimal imprecision") (\( a, b ) -> abs (product a b / b - a) < 1.0e-6)) (filter (\( a, b ) -> b /= 0) (tuple ( float, float )))
                 ]
         ]
