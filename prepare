@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo Creating a new repo based on the template.
+rm -fr .git
+rm -fr node_modules
+rm -fr elm-stuff/exact-dependencies.json
+rm -fr elm-stuff/packages
+npm install
+git init
+git add .
+git status
+rm ./prepare

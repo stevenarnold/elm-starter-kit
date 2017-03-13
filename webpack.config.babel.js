@@ -25,7 +25,7 @@ const config = {
         // Notice that the preloader actually reads .elm files looking for dependencies to be compiled from elmx
         test: /\.elm$/,
         loader: 'elmx-webpack-preloader',
-        include: [join(__dirname, "elm")],
+        include: [path.join(__dirname, "elm")],
         query: {
           sourceDirectories: ['elm']
         }
@@ -37,7 +37,7 @@ const config = {
       {
         test: /\.elm$/,
         loader: 'elm-webpack',
-        include: [join(__dirname, "elm")]
+        include: [path.join(__dirname, "elm")]
       },
       { test: /\.elm$/, exclude: [/elm-stuff/, /node_modules/], loader: (START ? 'elm-hot!' : '') + 'elm-webpack?warn&pathToMake=node_modules/.bin/elm-make' }
     ]

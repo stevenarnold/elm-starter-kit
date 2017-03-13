@@ -1,12 +1,12 @@
 module Main exposing (..)
 
-import Html.App
+import Html
 import App.Todo as Todo
 
 
-main : Program Never
+main : Program Never Todo.Model Todo.Msg
 main =
-    Html.App.program
+    Html.program
         { init = Todo.init
         , view = Todo.view
         , update = Todo.update
